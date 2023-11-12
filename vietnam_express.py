@@ -87,10 +87,10 @@ def collect_subsection_news(session, subsection, subsection_url, news_dict, date
 
 def collect_vietnam_express_news(outer_news):
     with requests.Session() as sess:
-        key_date = datetime.datetime.today().date() - datetime.timedelta(1)
+        today = datetime.datetime.today().date()
         homepage_url = 'https://e.vnexpress.net/'
         sections_urls = gather_section_urls(sess, homepage_url)
-        local_news = collect_news_from_sections(sess, key_date, sections_urls)
+        local_news = collect_news_from_sections(sess, today, sections_urls)
         local_news = parser.find_relevant_news(local_news, 5)
         output_news = outer_news | local_news
     return output_news

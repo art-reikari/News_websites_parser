@@ -62,11 +62,11 @@ def collect_section(session, url, news_dict, date):
 def collect_rappler_news(outer_news):
     sections_urls = ['https://www.rappler.com/nation/', 'https://www.rappler.com/world/asia-pacific/',
                      'https://www.rappler.com/business/']
-    key_date = (datetime.datetime.today() - datetime.timedelta(1)).date()
+    today = datetime.datetime.today().date()
     local_news = {}
     with requests.session() as session:
         for section_url in sections_urls:
-            local_news = collect_section(session, section_url, local_news, key_date)
+            local_news = collect_section(session, section_url, local_news, today)
         local_news = parser.find_relevant_news(local_news, 5)
         output_news = outer_news | local_news
         return output_news
